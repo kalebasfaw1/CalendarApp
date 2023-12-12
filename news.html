@@ -15,7 +15,7 @@
 
 <body>
     <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">S
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Calendar App</a>
         <span id="currentDateTime" class="ml-auto"></span>
         <!-- ... -->
@@ -46,7 +46,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         window.onload = function () {
-            fetch('http://newsapi.org/v2/top-headlines?country=us&apiKey=8ddcaf3a24ba4a57ad3e6d3b71391d90')
+            fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=8ddcaf3a24ba4a57ad3e6d3b71391d90')
                 .then(response => response.json())
                 .then(data => {
                     const newsData = data.articles;
