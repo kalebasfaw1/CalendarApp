@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Top News</title>
     <!-- Bootstrap CSS link -->
-    <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .article-link {
             padding: 10px;
@@ -46,7 +46,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         window.onload = function () {
-            fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=8ddcaf3a24ba4a57ad3e6d3b71391d90')
+            fetch('http://newsapi.org/v2/top-headlines?country=us&apiKey=8ddcaf3a24ba4a57ad3e6d3b71391d90')
                 .then(response => response.json())
                 .then(data => {
                     const newsData = data.articles;
