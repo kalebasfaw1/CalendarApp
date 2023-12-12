@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Forecast</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+  <!-- Navigation bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Calendar App</a>
+    <span id="currentDateTime" class="ml-auto"></span>
+    <!-- ... -->
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 bg-light p-4 d-flex flex-column" style="height: 100vh;">
+            <a href="index.html" class="btn btn-primary mt-3">Back to Calendar</a>
+            <!-- ... -->
+        </div>
+
+        <!-- Main content area for news -->
+        <div class="col-lg-9">
+            <h1>Weather Forecast</h1>
+            <div class="row">
+                <div class="col-md-6" id="newsListColumn1"></div>
+                <div class="col-md-6" id="newsListColumn2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <script>
+    const apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=Harrisonburg&limit=1&appid=78c37dd919ceb1a4cf7807301cc0991b';
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const { lat, lon } = data[0]; // Assuming the first result contains the required latitude and longitude
+        const weatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily&appid=78c37dd919ceb1a4cf7807301cc0991b&units=metric`;
+
+        fetch(weatherApiUrl)
+          .then(response => response.json())
+          .then(weatherData => {
+            const currentWeather = weatherData.current;
+            const temperature = currentWeather.temp;
+            const description = currentWeather.weather[0].description;
+            const timestamp = new Date(currentWeather.dt * 1000).toLocaleString();
+
+            const weatherDiv = document.getElementById('weatherData');
+            weatherDiv.innerHTML = `<p>Temperature: ${temperature}°C</p>
+                                    <p>Description: ${description}</p>
+                                    <p>Last Updated: ${timestamp}</p>`;
+          })
+          .catch(error => {
+            console.log('Error fetching weather data:', error);
+            const weatherDiv = document.getElementById('weatherData');
+            weatherDiv.innerHTML = '<p>Failed to fetch weather data. Please try again later.</p>';
+          });
+      })
+      .catch(error => {
+        console.log('Error fetching location data:', error);
+        const weatherDiv = document.getElementById('weatherData');
+        weatherDiv.innerHTML = '<p>Failed to fetch location data. Please try again later.</p>';
+      });
+  </script>
+</body>
+</html>
