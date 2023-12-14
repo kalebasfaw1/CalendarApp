@@ -1,71 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Weather Forecast</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
 
-  <!-- Navigation bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Calendar App</a>
-    <span id="currentDateTime" class="ml-auto"></span>
-    <!-- ... -->
-</nav>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Calendar App</a>
+        <span id="currentDateTime" class="ml-auto"></span>
+        <!-- ... -->
+    </nav>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-lg-3 bg-light p-4 d-flex flex-column" style="height: 100vh;">
-            <a href="index.html" class="btn btn-primary mt-3">Back to Calendar</a>
-            <!-- ... -->
-        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 bg-light p-4 d-flex flex-column" style="height: 100vh;">
+                <a href="index.html" class="btn btn-primary mt-3">Back to Calendar</a>
+                <!-- ... -->
+            </div>
 
-        <!-- Main content area for news -->
-        <div class="col-lg-9">
-            <h1>Weather Forecast</h1>
-            <div class="row">
-                <div class="col-md-6" id="newsListColumn1"></div>
-                <div class="col-md-6" id="newsListColumn2"></div>
+            <!-- Main content area for weather forecast -->
+            <div class="col-lg-9">
+                <h1>Weather Forecast</h1>
+                <div class="row" id="weatherForecast"></div>
             </div>
         </div>
     </div>
-</div>
 
-  <script>
-    const apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=Harrisonburg&limit=1&appid=78c37dd919ceb1a4cf7807301cc0991b';
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Include other necessary scripts -->
 
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        const { lat, lon } = data[0]; // Assuming the first result contains the required latitude and longitude
-        const weatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily&appid=78c37dd919ceb1a4cf7807301cc0991b&units=metric`;
+    <script>
+        function fetchWeatherForecast() {
+            const apiKey = 'ca62f04760f54230a25193515231412';
+            const location = 'Harrisonburg';
+            const days = 5;
+            const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=${days}&aqi=no&alerts=no`;
 
-        fetch(weatherApiUrl)
-          .then(response => response.json())
-          .then(weatherData => {
-            const currentWeather = weatherData.current;
-            const temperature = currentWeather.temp;
-            const description = currentWeather.weather[0].description;
-            const timestamp = new Date(currentWeather.dt * 1000).toLocaleString();
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const weatherForecastContainer = document.getElementById('weatherForecast');
+                    const forecastDays = data.forecast.forecastday;
 
-            const weatherDiv = document.getElementById('weatherData');
-            weatherDiv.innerHTML = `<p>Temperature: ${temperature}°C</p>
-                                    <p>Description: ${description}</p>
-                                    <p>Last Updated: ${timestamp}</p>`;
-          })
-          .catch(error => {
-            console.log('Error fetching weather data:', error);
-            const weatherDiv = document.getElementById('weatherData');
-            weatherDiv.innerHTML = '<p>Failed to fetch weather data. Please try again later.</p>';
-          });
-      })
-      .catch(error => {
-        console.log('Error fetching location data:', error);
-        const weatherDiv = document.getElementById('weatherData');
-        weatherDiv.innerHTML = '<p>Failed to fetch location data. Please try again later.</p>';
-      });
-  </script>
+                    forecastDays.forEach(day => {
+                        const forecastDate = day.date;
+                        const forecastCondition = day.day.condition.text;
+                        const forecastTemp = day.day.avgtemp_c;
+
+                        const weatherCard = document.createElement('div');
+                        weatherCard.classList.add('col-md-2', 'mb-3');
+
+                        weatherCard.innerHTML = `
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${forecastDate}</h5>
+                                    <p class="card-text">${forecastCondition}</p>
+                                    <p class="card-text">Avg Temp: ${forecastTemp}°C</p>
+                                </div>
+                            </div>
+                        `;
+
+                        weatherForecastContainer.appendChild(weatherCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                });
+        }
+
+        window.onload = function () {
+            fetchWeatherForecast();
+        };
+    </script>
 </body>
+
 </html>
