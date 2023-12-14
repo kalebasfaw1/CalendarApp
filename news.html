@@ -47,7 +47,7 @@
     <script>
 
         window.onload = function () {
-            fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=8ddcaf3a24ba4a57ad3e6d3b71391d90')
+            fetch('https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&apiKey=8ddcaf3a24ba4a57ad3e6d3b71391d90')
                 .then(response => response.json())
                 .then(data => {
                     const newsData = data.articles;
