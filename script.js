@@ -1,8 +1,6 @@
-// Update the currentYear and currentMonth variables
-let currentYear = new Date().getFullYear(); // Example current year
-let currentMonth = new Date().getMonth(); // Example current month (zero-based index)
+let currentYear = new Date().getFullYear();
+let currentMonth = new Date().getMonth();
 
-// Load events when the page loads
 loadEvents();
 
 // Populate the month dropdown with options
@@ -47,24 +45,22 @@ function loadEvents() {
     }
 }
 
-// Event listener for month selection change
 monthSelect.addEventListener("change", function () {
     currentMonth = parseInt(this.value);
-    displayCalendar(currentYear, currentMonth); // Call function to display calendar for the selected month and year
+    displayCalendar(currentYear, currentMonth);
 });
 
-// Event listener for year selection change
 yearSelect.addEventListener("change", function () {
     currentYear = parseInt(this.value);
-    displayCalendar(currentYear, currentMonth); // Call function to display calendar for the selected month and year
+    displayCalendar(currentYear, currentMonth);
 });
 
 function displayCalendar(year, month) {
     const calendarContainer = document.querySelector('.calendar');
-    calendarContainer.innerHTML = ''; // Clear previous calendar content
+    calendarContainer.innerHTML = '';
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const firstDayOfWeek = new Date(year, month, 1).getDay(); // Day of the week (0 - 6) for the first day of the month
+    const firstDayOfWeek = new Date(year, month, 1).getDay();
 
     const monthHeader = document.createElement('h2');
     monthHeader.textContent = `${months[month]} ${year}`;
@@ -116,7 +112,6 @@ function displayCalendar(year, month) {
 displayCalendar(currentYear, currentMonth);
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Event listener for table cell click
     document.querySelector('.calendar').addEventListener('click', function (e) {
         const clickedElement = e.target;
         if (clickedElement.tagName === 'TD' && clickedElement.textContent.trim() !== '') {
@@ -125,12 +120,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Event listener for modal close button
     document.querySelector('.close').addEventListener('click', function () {
         document.getElementById('eventModal').style.display = 'none';
     });
 
-    // Event listener for saving event
     document.getElementById('saveEventBtn').addEventListener('click', function () {
         const eventInput = document.getElementById('eventInput');
         const eventText = eventInput.value.trim();
@@ -138,22 +131,19 @@ document.addEventListener("DOMContentLoaded", function () {
         if (eventText !== '') {
             saveEvent(eventText, formattedDay);
             openEventModal(formattedDay);
-            eventInput.value = ''; // Clear input field after saving
+            eventInput.value = '';
         }
     });
 });
 
-// Function to open modal for event entry
 function openEventModal(date) {
     const modal = document.getElementById('eventModal');
     const eventList = document.getElementById('eventList');
 
-    // Show modal
     modal.style.display = 'block';
 
-    // Display date in modal header with proper day formatting
-    const formattedDay = date < 10 ? `0${date}` : `${date}`; // Ensure two digits for the day
-    const formattedMonth = currentMonth < 9 ? `0${currentMonth + 1}` : `${currentMonth + 1}`; // Ensure two digits for the month
+    const formattedDay = date < 10 ? `0${date}` : `${date}`;
+    const formattedMonth = currentMonth < 9 ? `0${currentMonth + 1}` : `${currentMonth + 1}`;
     const modalHeader = document.querySelector('.modal-title');
     modalHeader.textContent = `${months[currentMonth]} ${formattedDay}, ${currentYear}`;
 
@@ -190,7 +180,6 @@ function saveEvent(eventText, date) {
     eventItem.textContent = eventText;
     eventList.appendChild(eventItem);
 
-    // Save event to localStorage
     const eventDateKey = `${months[currentMonth]} ${date}, ${currentYear}`;
     let events = JSON.parse(localStorage.getItem('events')) || {};
     if (!events[eventDateKey]) {

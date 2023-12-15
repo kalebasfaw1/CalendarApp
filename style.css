@@ -1,98 +1,80 @@
-  /* Set calendar to cover the entire screen */
-  .calendar {
-      width: 100%;
-      height: 100vh;
-      /* Use viewport height */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #fff;
-      /* White for calendar background */
-  }
+.calendar {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
 
-  /* Style for the table */
-  table {
-      border-collapse: collapse;
-      width: 90%;
-      /* Adjust calendar width */
-      max-width: 800px;
-      /* Max width for larger screens */
-      border: none;
-      /* Remove table borders */
-      background-color: rgb(240, 237, 237);
-  }
+table {
+    border-collapse: collapse;
+    width: 90%;
+    max-width: 800px;
+    border: none;
+    background-color: rgb(240, 237, 237);
+}
 
-  /* Style for table headers */
-  th {
-      padding: 10px;
-      text-align: center;
-      border: none;
-      /* Remove header borders */
-      font-weight: bold;
-  }
+th {
+    padding: 10px;
+    text-align: center;
+    border: none;
+    font-weight: bold;
+}
 
-  /* Style for table cells */
-  td {
-      padding: 10px;
-      text-align: center;
-      border: none;
-      /* Remove cell borders */
-      position: relative;
-      cursor: pointer;
-  }
+td {
+    padding: 10px;
+    text-align: center;
+    border: none;
+    position: relative;
+    cursor: pointer;
+}
 
-  /* Style for the current day */
-  td.today {
-      background-color: #FEEEBD;
-      /* Light yellow for current day */
-      border-radius: 50%;
-      /* Round border for current day */
-  }
+td.today {
+    background-color: #FEEEBD;
+    border-radius: 50%;
+}
 
-  /* Style for hovered day */
-  td:hover {
-      background-color: #EAEAEA;
-      /* Light gray on hover */
-  }
+td:hover {
+    background-color: #EAEAEA;
+}
 
-  /* Style for the month navigation */
-  .month {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 10px;
-  }
+.month {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
 
-  .prev,
-  .next {
-      cursor: pointer;
-      font-size: 20px;
-      margin: 0 10px;
-  }
+.prev,
+.next {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 10px;
+}
 
-  /* Style for the modal */
-  .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-  }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
 
-  .modal-content {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-  }
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
 
-  .close {
-      float: right;
-      cursor: pointer;
-      font-size: 24px;
-  }
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 24px;
+}
