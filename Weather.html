@@ -40,7 +40,7 @@
             const apiKey = 'ca62f04760f54230a25193515231412';
             const location = 'Harrisonburg';
             const days = 5;
-            const apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.weatherapi.com/v1/forecast.json?key=ca62f04760f54230a25193515231412&q=Harrisonburg&days=5&aqi=no&alerts=no';
+            const apiUrl = 'http://localhost:3000/weather';
 
             fetch(apiUrl)
                 .then(response => response.json())
